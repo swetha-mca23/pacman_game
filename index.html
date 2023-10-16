@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div{
+            width: 800px;
+            height: 500px;
+            padding: 30px;
+            background-color: pink;
+
+        }
+        #create{
+            background-color: aqua;
+            
+        }
+        #move{
+            background-color: aqua;
+            
+        }
+
+    </style>
+</head>
+<body>
+    <div>
+    <button onclick="create()" id="create">Add PacMan</button>
+    <button onclick="move()" id="move">Start Game</button>
+    
+    
+    <script>
+        var PacMan=[]
+        var x_pos=[]
+        var y_pos=[]
+        var x_vel=[]
+        var y_vel=[]
+        var index=0
+        var gravity=1
+        var velocity=15
+        var direction=[]
+        var PacMan12=["images/PacMan1.png","images/PacMan2.png"];
+        var PacMan34=["images/PacMan3.png","images/PacMan4.png"];
+        
+
+        function create(){
+            var xpos=Math.random()*500
+            var ypos=Math.random()*500
+            var new_image=document.createElement('img')
+            new_image.src="images/PacMan1.png"
+            new_image.style.width=50+'px'
+            new_image.style.position="absolute"
+            new_image.style.left=xpos+'px'
+            new_image.style.top=ypos+'px'
+            PacMan.push(new_image)
+            x_pos.push(xpos)
+            y_pos.push(ypos)
+            document.body.appendChild(new_image)
+        }
+
+        
+
+        function move(){
+            index=index +1
+            for(let i=0;i<PacMan.length;i++){
+            var xvel=Math.floor(Math.random()*30)
+            var yvel=Math.floor(Math.random()*30)
+            x_vel.push(xvel)
+            y_vel.push(yvel)
+            var dir=Math.random()<0.5?1:-1;
+            direction.push(dir)
+            x_pos[i]=x_pos[i]+x_vel[i]
+            y_pos[i]=y_pos[i]+y_vel[i]
+
+
+
+            if(x_pos[i]<=10 || x_pos[i]>700){
+                x_vel[i]=-x_vel[i]*gravity
+                direction[i]=-direction[i]
+            }
+
+            if(y_pos[i]<=10 || y_pos[i]>500){
+                y_vel[i]=-y_vel[i]*gravity
+                direction[i]=-direction[i]
+            }
+
+            if(direction[i]==1){
+                if(index % 2==0){
+                    PacMan[i].src=PacMan12[1]
+                }
+                else{
+                    PacMan[i].src=PacMan12[0]
+                }
+            }
+            else{
+                if(index % 2==0){
+                    PacMan[i].src=PacMan34[1]
+                }
+                else{
+                    PacMan[i].src=PacMan34[0]
+                }
+
+            }
+            
+            
+
+        
+            
+          
+
+
+            PacMan[i].style.left=x_pos[i]+'px';
+            PacMan[i].style.top=y_pos[i]+'px';
+            //console.log(xvel,yvel)
+        }
+            setTimeout(move,300)
+    }
+        
+            
+
+
+
+        
+        
+
+    </script>
+    </div>
+</body>
+</html>
